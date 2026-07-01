@@ -70,12 +70,13 @@ PlasmoidItem {
         return Math.round(value) + "%"
     }
 
-    // Human-readable byte count: B / K / M / G / T with one decimal place.
+    // Human-readable byte count: B / KB / MB / GB / TB with one decimal place.
+    // Division uses 1024-based (binary) steps, which matches KSysGuard output.
     function formatBytes(bytes) {
         if (bytes === undefined || bytes === null || isNaN(bytes) || bytes < 0) {
             return "0 B"
         }
-        const units = ["B", "K", "M", "G", "T"]
+        const units = ["B", "KB", "MB", "GB", "TB"]
         let i = 0
         let v = bytes
         while (v >= 1024 && i < units.length - 1) {

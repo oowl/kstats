@@ -21,9 +21,6 @@ PlasmoidItem {
     property alias diskWriteSensor: diskWrite
     property alias networkDownloadSensor: networkDownload
     property alias networkUploadSensor: networkUpload
-    property alias gpuUsageSensor: gpuUsage
-    property alias gpuMemorySensor: gpuMemory
-    property alias gpuTemperatureSensor: gpuTemperature
     property int selectedTab: 0
     readonly property int historySampleLimit: 72
     readonly property int networkHistorySampleLimit: 48
@@ -270,27 +267,6 @@ PlasmoidItem {
         id: networkUpload
         enabled: root.configString(Plasmoid.configuration.networkUploadSensorId).length > 0
         sensorId: root.configString(Plasmoid.configuration.networkUploadSensorId)
-        updateRateLimit: root.sensorUpdateRate
-    }
-
-    Sensors.Sensor {
-        id: gpuUsage
-        enabled: root.configString(Plasmoid.configuration.gpuUsageSensorId).length > 0
-        sensorId: root.configString(Plasmoid.configuration.gpuUsageSensorId)
-        updateRateLimit: root.sensorUpdateRate
-    }
-
-    Sensors.Sensor {
-        id: gpuMemory
-        enabled: root.configString(Plasmoid.configuration.gpuMemorySensorId).length > 0
-        sensorId: root.configString(Plasmoid.configuration.gpuMemorySensorId)
-        updateRateLimit: root.sensorUpdateRate
-    }
-
-    Sensors.Sensor {
-        id: gpuTemperature
-        enabled: root.configString(Plasmoid.configuration.gpuTemperatureSensorId).length > 0
-        sensorId: root.configString(Plasmoid.configuration.gpuTemperatureSensorId)
         updateRateLimit: root.sensorUpdateRate
     }
 

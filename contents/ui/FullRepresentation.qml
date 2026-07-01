@@ -120,44 +120,8 @@ Controls.Pane {
                 rootItem: full.rootItem
             }
 
-            ColumnLayout {
-                Layout.fillWidth: true
-                Layout.fillHeight: true
-                spacing: Kirigami.Units.largeSpacing
-
-                Local.DropdownMetric {
-                    title: i18nc("@label", "GPU")
-                    iconName: "video-display"
-                    primaryValue: rootItem.sensorText(rootItem.gpuUsageSensor)
-                    secondaryValue: i18nc("@label", "Graphics processor usage")
-                    sensorId: rootItem.gpuUsageSensor.sensorId
-                    percent: rootItem.sensorPercent(rootItem.gpuUsageSensor)
-                    accentColor: Kirigami.Theme.positiveTextColor
-                }
-
-                Local.DropdownMetric {
-                    title: i18nc("@label", "GPU Memory")
-                    iconName: "memory"
-                    primaryValue: rootItem.sensorText(rootItem.gpuMemorySensor)
-                    secondaryValue: i18nc("@label", "Graphics memory used")
-                    sensorId: rootItem.gpuMemorySensor.sensorId
-                    percent: rootItem.sensorPercent(rootItem.gpuMemorySensor)
-                    accentColor: Kirigami.Theme.focusColor
-                }
-
-                Local.DropdownMetric {
-                    title: i18nc("@label", "GPU Temperature")
-                    iconName: "temperature"
-                    primaryValue: rootItem.sensorText(rootItem.gpuTemperatureSensor)
-                    secondaryValue: i18nc("@label", "Graphics processor temperature")
-                    sensorId: rootItem.gpuTemperatureSensor.sensorId
-                    percent: rootItem.sensorPercent(rootItem.gpuTemperatureSensor)
-                    accentColor: Kirigami.Theme.neutralTextColor
-                }
-
-                Item {
-                    Layout.fillHeight: true
-                }
+            Local.GpuPage {
+                rootItem: full.rootItem
             }
 
             Local.NetworkPage {

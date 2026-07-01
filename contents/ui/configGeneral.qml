@@ -21,9 +21,6 @@ KCM.SimpleKCM {
     property alias cfg_diskWriteSensorId: diskWriteSensorId.text
     property alias cfg_networkDownloadSensorId: networkDownloadSensorId.text
     property alias cfg_networkUploadSensorId: networkUploadSensorId.text
-    property alias cfg_gpuUsageSensorId: gpuUsageSensorId.text
-    property alias cfg_gpuMemorySensorId: gpuMemorySensorId.text
-    property alias cfg_gpuTemperatureSensorId: gpuTemperatureSensorId.text
 
     property int cfg_updateRateLimitDefault
     property int cfg_compactBarLengthDefault
@@ -38,9 +35,6 @@ KCM.SimpleKCM {
     property string cfg_diskWriteSensorIdDefault
     property string cfg_networkDownloadSensorIdDefault
     property string cfg_networkUploadSensorIdDefault
-    property string cfg_gpuUsageSensorIdDefault
-    property string cfg_gpuMemorySensorIdDefault
-    property string cfg_gpuTemperatureSensorIdDefault
 
     Kirigami.FormLayout {
         anchors.fill: parent
@@ -153,30 +147,6 @@ KCM.SimpleKCM {
             id: networkUploadSensorId
             Kirigami.FormData.label: i18nc("@label", "Network up:")
             placeholderText: root.cfg_networkUploadSensorIdDefault
-        }
-
-        Kirigami.Separator {
-            Kirigami.FormData.isSection: true
-            Kirigami.FormData.label: i18nc("@title:group", "GPU Sensor IDs")
-            Layout.fillWidth: true
-        }
-
-        Controls.TextField {
-            id: gpuUsageSensorId
-            Kirigami.FormData.label: i18nc("@label", "GPU usage:")
-            placeholderText: i18nc("@placeholder", "Optional")
-        }
-
-        Controls.TextField {
-            id: gpuMemorySensorId
-            Kirigami.FormData.label: i18nc("@label", "GPU memory:")
-            placeholderText: i18nc("@placeholder", "Optional")
-        }
-
-        Controls.TextField {
-            id: gpuTemperatureSensorId
-            Kirigami.FormData.label: i18nc("@label", "GPU temperature:")
-            placeholderText: i18nc("@placeholder", "Optional")
         }
     }
 }

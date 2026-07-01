@@ -8,6 +8,7 @@ Canvas {
     property real sampleValue: 0
     property int sampleLimit: 36
     property var samples: []
+    property bool autoSample: true
     property color lineColor: "white"
     property bool showFill: false
     property bool showGrid: false
@@ -18,8 +19,9 @@ Canvas {
 
     antialiasing: true
 
-    onSampleValueChanged: addSample(sampleValue)
-    Component.onCompleted: addSample(sampleValue)
+    onSampleValueChanged: if (autoSample) addSample(sampleValue)
+    onSamplesChanged: requestPaint()
+    Component.onCompleted: if (autoSample) addSample(sampleValue)
 
     function addSample(value) {
         var numeric = Number(value);

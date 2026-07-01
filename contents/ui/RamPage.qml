@@ -263,8 +263,9 @@ Item {
                 Local.Sparkline {
                     Layout.fillWidth: true
                     Layout.fillHeight: true
-                    sampleLimit: 72
-                    sampleValue: page.displayPercent
+                    sampleLimit: page.rootItem.historySampleLimit
+                    samples: page.rootItem.memoryUsageSamples
+                    autoSample: false
                     lineColor: Kirigami.Theme.focusColor
                     showFill: true
                     showScale: true

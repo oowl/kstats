@@ -38,7 +38,8 @@ jobs:
             libxml2 \
             plasma5support \
             python \
-            qt6-declarative
+            qt6-declarative \
+            zip
 
       - name: Print tool versions
         run: |
@@ -82,7 +83,7 @@ jobs:
           version="${GITHUB_REF_NAME#v}"
           package="dist/org.kde.plasma.kstats-${version}.plasmoid"
           mkdir -p dist
-          git archive --format=zip --output="$package" HEAD metadata.json contents LICENSE README.md
+          zip -r "$package" metadata.json contents LICENSE README.md
           sha256sum "$package" > "$package.sha256"
           ls -lh dist
 

@@ -14,7 +14,7 @@
         "Id": "org.kde.plasma.kstats",
         "License": "MIT",
         "Name": "KStats",
-        "Version": "0.1.0",
+        "Version": "0.2.0",
         "Website": "https://github.com/oowl/kstats"
     },
     "X-Plasma-API-Minimum-Version": "6.0"

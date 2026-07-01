@@ -50,12 +50,13 @@ Implemented:
 - compact panel representation
 - Stats-like expanded dropdown with CPU, GPU, NET, and DISK tabs
 - CPU, memory, disk, network sensors
+- CPU model plus auto-discovered CPU temperature and fan sensors
 - configurable sensor IDs and update interval
-- optional GPU usage, memory, and temperature sensors
+- auto-discovered GPU usage, memory, and temperature sensors
 
 Not implemented yet:
 
-- thermal, voltage, power, and fan sensors
+- voltage and power sensors
 
 Those require hardware-specific Linux backends or deeper integration with KDE's
 sensor browser and should be added after the basic widget is stable.

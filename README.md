@@ -12,11 +12,19 @@ using CPU, memory, disk, and network readings from KDE's KSysGuard sensor API.
 
 ### CPU details
 
-![KStats CPU details](screenshots/cpu.png)
+![KStats CPU details](screenshots/main.png)
 
 ### Disk details
 
 ![KStats disk details](screenshots/disk.png)
+
+### Network details
+
+![KStats Network details](screenshots/net.png)
+
+### Memory details
+
+![KStats memory details](screenshots/memory.png)
 
 ## Install for the current user
 

@@ -112,98 +112,60 @@ Controls.Pane {
             Layout.fillWidth: true
             Layout.fillHeight: true
 
-            Item {
-                Loader {
-                    anchors.fill: parent
-                    active: full.currentTab === 0
-                    sourceComponent: Component {
-                        Local.CpuPage {
-                            rootItem: full.rootItem
-                        }
-                    }
+            Local.CpuPage {
+                rootItem: full.rootItem
+            }
+
+            Local.RamPage {
+                rootItem: full.rootItem
+            }
+
+            ColumnLayout {
+                Layout.fillWidth: true
+                Layout.fillHeight: true
+                spacing: Kirigami.Units.largeSpacing
+
+                Local.DropdownMetric {
+                    title: i18nc("@label", "GPU")
+                    iconName: "video-display"
+                    primaryValue: rootItem.sensorText(rootItem.gpuUsageSensor)
+                    secondaryValue: i18nc("@label", "Graphics processor usage")
+                    sensorId: rootItem.gpuUsageSensor.sensorId
+                    percent: rootItem.sensorPercent(rootItem.gpuUsageSensor)
+                    accentColor: Kirigami.Theme.positiveTextColor
+                }
+
+                Local.DropdownMetric {
+                    title: i18nc("@label", "GPU Memory")
+                    iconName: "memory"
+                    primaryValue: rootItem.sensorText(rootItem.gpuMemorySensor)
+                    secondaryValue: i18nc("@label", "Graphics memory used")
+                    sensorId: rootItem.gpuMemorySensor.sensorId
+                    percent: rootItem.sensorPercent(rootItem.gpuMemorySensor)
+                    accentColor: Kirigami.Theme.focusColor
+                }
+
+                Local.DropdownMetric {
+                    title: i18nc("@label", "GPU Temperature")
+                    iconName: "temperature"
+                    primaryValue: rootItem.sensorText(rootItem.gpuTemperatureSensor)
+                    secondaryValue: i18nc("@label", "Graphics processor temperature")
+                    sensorId: rootItem.gpuTemperatureSensor.sensorId
+                    percent: rootItem.sensorPercent(rootItem.gpuTemperatureSensor)
+                    accentColor: Kirigami.Theme.neutralTextColor
+                }
+
+                Item {
+                    Layout.fillHeight: true
                 }
             }
 
-            Item {
-                Loader {
-                    anchors.fill: parent
-                    active: full.currentTab === 1
-                    sourceComponent: Component {
-                        Local.RamPage {
-                            rootItem: full.rootItem
-                        }
-                    }
-                }
+            Local.NetworkPage {
+                rootItem: full.rootItem
             }
 
-            Item {
-                Loader {
-                    anchors.fill: parent
-                    active: full.currentTab === 2
-                    sourceComponent: Component {
-                        ColumnLayout {
-                            spacing: Kirigami.Units.largeSpacing
-
-                            Local.DropdownMetric {
-                                title: i18nc("@label", "GPU")
-                                iconName: "video-display"
-                                primaryValue: rootItem.sensorText(rootItem.gpuUsageSensor)
-                                secondaryValue: i18nc("@label", "Graphics processor usage")
-                                sensorId: rootItem.gpuUsageSensor.sensorId
-                                percent: rootItem.sensorPercent(rootItem.gpuUsageSensor)
-                                accentColor: Kirigami.Theme.positiveTextColor
-                            }
-
-                            Local.DropdownMetric {
-                                title: i18nc("@label", "GPU Memory")
-                                iconName: "memory"
-                                primaryValue: rootItem.sensorText(rootItem.gpuMemorySensor)
-                                secondaryValue: i18nc("@label", "Graphics memory used")
-                                sensorId: rootItem.gpuMemorySensor.sensorId
-                                percent: rootItem.sensorPercent(rootItem.gpuMemorySensor)
-                                accentColor: Kirigami.Theme.focusColor
-                            }
-
-                            Local.DropdownMetric {
-                                title: i18nc("@label", "GPU Temperature")
-                                iconName: "temperature"
-                                primaryValue: rootItem.sensorText(rootItem.gpuTemperatureSensor)
-                                secondaryValue: i18nc("@label", "Graphics processor temperature")
-                                sensorId: rootItem.gpuTemperatureSensor.sensorId
-                                percent: rootItem.sensorPercent(rootItem.gpuTemperatureSensor)
-                                accentColor: Kirigami.Theme.neutralTextColor
-                            }
-
-                            Item {
-                                Layout.fillHeight: true
-                            }
-                        }
-                    }
-                }
-            }
-
-            Item {
-                Loader {
-                    anchors.fill: parent
-                    active: full.currentTab === 3
-                    sourceComponent: Component {
-                        Local.NetworkPage {
-                            rootItem: full.rootItem
-                        }
-                    }
-                }
-            }
-
-            Item {
-                Loader {
-                    anchors.fill: parent
-                    active: full.currentTab === 4
-                    sourceComponent: Component {
-                        Local.DiskPage {
-                            rootItem: full.rootItem
-                        }
-                    }
-                }
+            Local.DiskPage {
+                rootItem: full.rootItem
             }
         }
     }

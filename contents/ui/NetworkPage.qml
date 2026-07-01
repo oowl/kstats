@@ -344,9 +344,10 @@ Item {
                 Local.NetworkHistoryChart {
                     Layout.fillWidth: true
                     Layout.fillHeight: true
-                    uploadValue: page.uploadRate
-                    downloadValue: page.downloadRate
-                    sampleKey: page.chartTick
+                    sampleLimit: page.rootItem.networkHistorySampleLimit
+                    uploadSamples: page.rootItem.networkUploadSamples
+                    downloadSamples: page.rootItem.networkDownloadSamples
+                    autoSample: false
                     uploadColor: Kirigami.Theme.negativeTextColor
                     downloadColor: Kirigami.Theme.focusColor
                 }

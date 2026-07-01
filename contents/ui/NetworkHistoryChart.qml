@@ -11,6 +11,7 @@ Canvas {
     property int sampleLimit: 48
     property var uploadSamples: []
     property var downloadSamples: []
+    property bool autoSample: true
     property color uploadColor: Kirigami.Theme.negativeTextColor
     property color downloadColor: Kirigami.Theme.focusColor
     property bool showScale: true
@@ -18,8 +19,10 @@ Canvas {
 
     antialiasing: true
 
-    onSampleKeyChanged: addSample(uploadValue, downloadValue)
-    Component.onCompleted: addSample(uploadValue, downloadValue)
+    onSampleKeyChanged: if (autoSample) addSample(uploadValue, downloadValue)
+    onUploadSamplesChanged: requestPaint()
+    onDownloadSamplesChanged: requestPaint()
+    Component.onCompleted: if (autoSample) addSample(uploadValue, downloadValue)
     onWidthChanged: requestPaint()
     onHeightChanged: requestPaint()
 

@@ -59,7 +59,7 @@ Item {
             anchors.fill: parent
             hoverEnabled: true
             cursorShape: Qt.PointingHandCursor
-            onClicked: compact.rootItem.openTab(target.tabIndex)
+            onClicked: compact.rootItem.toggleTab(target.tabIndex)
         }
     }
 

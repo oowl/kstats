@@ -109,6 +109,18 @@ PlasmoidItem {
         root.expanded = true;
     }
 
+    function toggleTab(tabIndex) {
+        var previousTab = root.selectedTab;
+        root.selectTab(tabIndex);
+
+        if (root.expanded && root.selectedTab === previousTab) {
+            root.expanded = false;
+            return;
+        }
+
+        root.expanded = true;
+    }
+
     function openSystemMonitor() {
         systemMonitorLauncher.exec("plasma-systemmonitor >/dev/null 2>&1 &", function(result) {
             if (result.exitCode !== 0) {

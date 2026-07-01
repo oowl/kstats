@@ -40,6 +40,9 @@ For local testing without installing:
 plasmoidviewer --applet .
 ```
 
+For KDE store:
+https://www.opendesktop.org/p/2364289/
+
 ## Scope
 
 Implemented:

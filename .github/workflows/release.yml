@@ -1,0 +1,101 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - "v*.*.*"
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    name: Build and publish plasmoid
+    runs-on: ubuntu-latest
+    container:
+      image: archlinux:base-devel
+    defaults:
+      run:
+        shell: bash
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Install Plasma 6 release dependencies
+        run: |
+          pacman -Syu --noconfirm --needed \
+            appstream \
+            git \
+            github-cli \
+            kcmutils \
+            kirigami \
+            kpackage \
+            libksysguard \
+            libplasma \
+            libxml2 \
+            plasma5support \
+            python \
+            qt6-declarative
+
+      - name: Print tool versions
+        run: |
+          /usr/lib/qt6/bin/qmllint --version
+          kpackagetool6 --version
+          appstreamcli --version
+          xmllint --version | head -n 1
+          gh --version
+
+      - name: Check release version
+        run: |
+          set -euo pipefail
+          tag_version="${GITHUB_REF_NAME#v}"
+          metadata_version="$(python -c 'import json; print(json.load(open("metadata.json"))["KPlugin"]["Version"])')"
+          if [ "$metadata_version" != "$tag_version" ]; then
+            echo "metadata.json version $metadata_version does not match tag $GITHUB_REF_NAME"
+            exit 1
+          fi
+
+      - name: Lint QML
+        run: /usr/lib/qt6/bin/qmllint --unqualified disable contents/ui/*.qml contents/config/config.qml
+
+      - name: Validate config XML
+        run: xmllint --noout contents/config/main.xml
+
+      - name: Validate metadata JSON
+        run: python -m json.tool metadata.json >/tmp/kstats.metadata.json
+
+      - name: Generate AppStream metadata
+        run: kpackagetool6 --type Plasma/Applet --appstream-metainfo . > /tmp/kstats.metainfo.xml
+
+      - name: Validate AppStream metadata
+        run: appstreamcli validate --no-net --explain /tmp/kstats.metainfo.xml
+
+      - name: Validate package install
+        run: kpackagetool6 --type Plasma/Applet --packageroot /tmp/kstats-plasmoid-check --install .
+
+      - name: Package plasmoid
+        run: |
+          set -euo pipefail
+          version="${GITHUB_REF_NAME#v}"
+          package="dist/org.kde.plasma.kstats-${version}.plasmoid"
+          mkdir -p dist
+          git archive --format=zip --output="$package" HEAD metadata.json contents LICENSE README.md
+          sha256sum "$package" > "$package.sha256"
+          ls -lh dist
+
+      - name: Publish GitHub Release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          if gh release view "$GITHUB_REF_NAME" >/dev/null 2>&1; then
+            gh release upload "$GITHUB_REF_NAME" dist/*.plasmoid dist/*.sha256 --clobber
+          else
+            gh release create "$GITHUB_REF_NAME" dist/*.plasmoid dist/*.sha256 \
+              --verify-tag \
+              --title "KStats ${GITHUB_REF_NAME#v}" \
+              --generate-notes
+          fi

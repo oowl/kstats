@@ -6,25 +6,22 @@ using CPU, memory, disk, and network readings from KDE's KSysGuard sensor API.
 
 ## Screenshots
 
-### Overview
-
-![KStats overview](screenshots/main.png)
-
-### CPU details
-
-![KStats CPU details](screenshots/main.png)
-
-### Disk details
-
-![KStats disk details](screenshots/disk.png)
-
-### Network details
-
-![KStats Network details](screenshots/net.png)
-
-### Memory details
-
-![KStats memory details](screenshots/memory.png)
+<table>
+  <tr>
+    <td align="center"><strong>CPU</strong></td>
+    <td align="center"><strong>Disk</strong></td>
+    <td align="center"><strong>Network</strong></td>
+    <td align="center"><strong>Memory</strong></td>
+    <td align="center"><strong>GPU</strong></td>
+  </tr>
+  <tr>
+    <td width="20%"><img src="screenshots/main.png" alt="KStats CPU details" width="100%"></td>
+    <td width="20%"><img src="screenshots/disk.png" alt="KStats disk details" width="100%"></td>
+    <td width="20%"><img src="screenshots/net.png" alt="KStats network details" width="100%"></td>
+    <td width="20%"><img src="screenshots/memory.png" alt="KStats memory details" width="100%"></td>
+    <td width="20%"><img src="screenshots/gpu.png" alt="KStats GPU details" width="100%"></td>
+  </tr>
+</table>
 
 ## Install for the current user
 

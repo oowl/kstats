@@ -1,0 +1,21 @@
+{
+    "KPackageStructure": "Plasma/Applet",
+    "KPlugin": {
+        "Authors": [
+            {
+                "Email": "junouyang@apache.org",
+                "Name": "Jun Ouyang"
+            }
+        ],
+        "Category": "System Information",
+        "Description": "Compact Stats-inspired system monitor for KDE Plasma.",
+        "EnabledByDefault": false,
+        "Icon": "utilities-system-monitor",
+        "Id": "org.kde.plasma.kstats",
+        "License": "MIT",
+        "Name": "KStats",
+        "Version": "0.1.0",
+        "Website": "https://github.com/oowl/kstats"
+    },
+    "X-Plasma-API-Minimum-Version": "6.0"
+}

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kcfg
+    xmlns="http://www.kde.org/standards/kcfg/1.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.kde.org/standards/kcfg/1.0 http://www.kde.org/standards/kcfg/1.0/kcfg.xsd">
+    <kcfgfile name="" />
+    <group name="General">
+        <entry name="updateRateLimit" type="Int">
+            <default>1000</default>
+        </entry>
+        <entry name="showCpu" type="Bool">
+            <default>true</default>
+        </entry>
+        <entry name="showMemory" type="Bool">
+            <default>true</default>
+        </entry>
+        <entry name="showDisk" type="Bool">
+            <default>true</default>
+        </entry>
+        <entry name="showNetwork" type="Bool">
+            <default>true</default>
+        </entry>
+        <entry name="cpuSensorId" type="String">
+            <default>cpu/all/usage</default>
+        </entry>
+        <entry name="memorySensorId" type="String">
+            <default>memory/physical/usedPercent</default>
+        </entry>
+        <entry name="diskSensorId" type="String">
+            <default>disk/all/usedPercent</default>
+        </entry>
+        <entry name="diskReadSensorId" type="String">
+            <default>disk/all/read</default>
+        </entry>
+        <entry name="diskWriteSensorId" type="String">
+            <default>disk/all/write</default>
+        </entry>
+        <entry name="networkDownloadSensorId" type="String">
+            <default>network/all/download</default>
+        </entry>
+        <entry name="networkUploadSensorId" type="String">
+            <default>network/all/upload</default>
+        </entry>
+        <entry name="gpuUsageSensorId" type="String">
+            <default></default>
+        </entry>
+        <entry name="gpuMemorySensorId" type="String">
+            <default></default>
+        </entry>
+        <entry name="gpuTemperatureSensorId" type="String">
+            <default></default>
+        </entry>
+    </group>
+</kcfg>

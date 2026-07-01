@@ -44,14 +44,5 @@
         <entry name="networkUploadSensorId" type="String">
             <default>network/all/upload</default>
         </entry>
-        <entry name="gpuUsageSensorId" type="String">
-            <default></default>
-        </entry>
-        <entry name="gpuMemorySensorId" type="String">
-            <default></default>
-        </entry>
-        <entry name="gpuTemperatureSensorId" type="String">
-            <default></default>
-        </entry>
     </group>
 </kcfg>

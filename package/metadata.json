@@ -1,0 +1,20 @@
+{
+    "KPackageStructure": "Plasma/Applet",
+    "KPlugin": {
+        "Authors": [
+            {
+                "Email": "",
+                "Name": "KStats"
+            }
+        ],
+        "Category": "System Information",
+        "Description": "KDE Plasma 6 panel widget displaying CPU, memory, disk, and network statistics",
+        "Icon": "utilities-system-monitor",
+        "Id": "org.kde.kstats",
+        "License": "MIT",
+        "Name": "KStats",
+        "Version": "1.0.0",
+        "Website": "https://github.com/oowl/kstats"
+    },
+    "X-Plasma-API-Minimum-Version": "6.0"
+}

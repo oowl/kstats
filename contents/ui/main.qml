@@ -24,6 +24,7 @@ PlasmoidItem {
     property alias gpuUsageSensor: gpuUsage
     property alias gpuMemorySensor: gpuMemory
     property alias gpuTemperatureSensor: gpuTemperature
+    property int selectedTab: 0
 
     Plasmoid.backgroundHints: PlasmaCore.Types.DefaultBackground | PlasmaCore.Types.ConfigurableBackground
     Plasmoid.title: i18n("KStats")
@@ -93,6 +94,31 @@ PlasmoidItem {
         count += Plasmoid.configuration.showDisk ? 1 : 0;
         count += Plasmoid.configuration.showNetwork ? 1 : 0;
         return Math.max(1, count);
+    }
+
+    function selectTab(tabIndex) {
+        var parsed = Number(tabIndex);
+        if (!isFinite(parsed)) {
+            parsed = 0;
+        }
+        root.selectedTab = Math.max(0, Math.min(4, Math.round(parsed)));
+    }
+
+    function openTab(tabIndex) {
+        root.selectTab(tabIndex);
+        root.expanded = true;
+    }
+
+    function toggleTab(tabIndex) {
+        var previousTab = root.selectedTab;
+        root.selectTab(tabIndex);
+
+        if (root.expanded && root.selectedTab === previousTab) {
+            root.expanded = false;
+            return;
+        }
+
+        root.expanded = true;
     }
 
     function openSystemMonitor() {

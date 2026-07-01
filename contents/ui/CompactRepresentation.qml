@@ -19,6 +19,50 @@ Item {
     implicitWidth: Layout.preferredWidth
     implicitHeight: Layout.preferredHeight
 
+    component ClickTarget: Item {
+        id: target
+
+        property int tabIndex: 0
+        property color accentColor: Kirigami.Theme.highlightColor
+        default property alias content: contentRow.data
+        readonly property real horizontalPadding: Kirigami.Units.smallSpacing
+        readonly property bool active: compact.rootItem.selectedTab === tabIndex && compact.rootItem.expanded
+
+        Layout.alignment: Qt.AlignVCenter
+        Layout.preferredWidth: contentRow.implicitWidth + horizontalPadding * 2
+        Layout.preferredHeight: compact.height
+        implicitWidth: Layout.preferredWidth
+        implicitHeight: Layout.preferredHeight
+
+        Rectangle {
+            anchors.fill: parent
+            radius: Math.min(width, height) / 2
+            color: target.active
+                ? Qt.rgba(target.accentColor.r, target.accentColor.g, target.accentColor.b, 0.16)
+                : targetMouse.containsMouse
+                    ? Qt.rgba(target.accentColor.r, target.accentColor.g, target.accentColor.b, 0.10)
+                    : "transparent"
+            border.width: target.active ? 1 : 0
+            border.color: Qt.rgba(target.accentColor.r, target.accentColor.g, target.accentColor.b, 0.32)
+        }
+
+        RowLayout {
+            id: contentRow
+
+            anchors.centerIn: parent
+            spacing: Kirigami.Units.smallSpacing / 2
+        }
+
+        MouseArea {
+            id: targetMouse
+
+            anchors.fill: parent
+            hoverEnabled: true
+            cursorShape: Qt.PointingHandCursor
+            onClicked: compact.rootItem.toggleTab(target.tabIndex)
+        }
+    }
+
     RowLayout {
         id: row
 
@@ -26,34 +70,49 @@ Item {
         height: parent.height
         spacing: Kirigami.Units.smallSpacing
 
-        Local.BarStat {
+        ClickTarget {
             visible: Plasmoid.configuration.showCpu
-            label: i18nc("@label", "CPU")
-            value: rootItem.sensorText(rootItem.cpuUsageSensor)
-            percent: rootItem.sensorPercent(rootItem.cpuUsageSensor)
             accentColor: Kirigami.Theme.positiveTextColor
+            tabIndex: 0
+
+            Local.BarStat {
+                label: i18nc("@label", "CPU")
+                value: rootItem.sensorText(rootItem.cpuUsageSensor)
+                percent: rootItem.sensorPercent(rootItem.cpuUsageSensor)
+                accentColor: Kirigami.Theme.positiveTextColor
+            }
         }
 
-        Local.BarStat {
+        ClickTarget {
             visible: Plasmoid.configuration.showMemory
-            label: i18nc("@label", "MEM")
-            value: rootItem.sensorText(rootItem.memoryUsageSensor)
-            percent: rootItem.sensorPercent(rootItem.memoryUsageSensor)
             accentColor: Kirigami.Theme.focusColor
+            tabIndex: 1
+
+            Local.BarStat {
+                label: i18nc("@label", "MEM")
+                value: rootItem.sensorText(rootItem.memoryUsageSensor)
+                percent: rootItem.sensorPercent(rootItem.memoryUsageSensor)
+                accentColor: Kirigami.Theme.focusColor
+            }
         }
 
-        Local.BarStat {
+        ClickTarget {
             visible: Plasmoid.configuration.showDisk
-            label: i18nc("@label", "DSK")
-            value: rootItem.sensorText(rootItem.diskUsageSensor)
-            percent: rootItem.sensorPercent(rootItem.diskUsageSensor)
             accentColor: Kirigami.Theme.neutralTextColor
+            tabIndex: 4
+
+            Local.BarStat {
+                label: i18nc("@label", "DSK")
+                value: rootItem.sensorText(rootItem.diskUsageSensor)
+                percent: rootItem.sensorPercent(rootItem.diskUsageSensor)
+                accentColor: Kirigami.Theme.neutralTextColor
+            }
         }
 
-        RowLayout {
+        ClickTarget {
             visible: Plasmoid.configuration.showNetwork
-            spacing: Kirigami.Units.smallSpacing / 2
-            Layout.alignment: Qt.AlignVCenter
+            accentColor: Kirigami.Theme.visitedLinkColor
+            tabIndex: 3
 
             Local.BarStat {
                 label: i18nc("@label download", "↓")
@@ -71,22 +130,5 @@ Item {
                 accentColor: Kirigami.Theme.visitedLinkColor
             }
         }
-    }
-
-    Rectangle {
-        anchors.fill: parent
-        radius: Math.min(width, height) / 2
-        color: compactMouse.containsMouse
-            ? Qt.rgba(Kirigami.Theme.highlightColor.r, Kirigami.Theme.highlightColor.g, Kirigami.Theme.highlightColor.b, 0.12)
-            : "transparent"
-        z: -1
-    }
-
-    MouseArea {
-        id: compactMouse
-
-        anchors.fill: parent
-        hoverEnabled: true
-        onClicked: rootItem.expanded = !rootItem.expanded
     }
 }

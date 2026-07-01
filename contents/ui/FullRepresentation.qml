@@ -9,7 +9,7 @@ Controls.Pane {
     id: full
 
     required property var rootItem
-    property int currentTab: 0
+    readonly property int currentTab: rootItem.selectedTab
 
     Layout.minimumWidth: Kirigami.Units.gridUnit * 22
     Layout.minimumHeight: Kirigami.Units.gridUnit * 27
@@ -70,7 +70,7 @@ Controls.Pane {
                     iconName: "cpu"
                     accentColor: Kirigami.Theme.positiveTextColor
                     text: i18nc("@title:tab", "CPU")
-                    onClicked: full.currentTab = 0
+                    onClicked: full.rootItem.selectTab(0)
                 }
 
                 Local.TabPill {
@@ -78,7 +78,7 @@ Controls.Pane {
                     iconName: "memory"
                     accentColor: Kirigami.Theme.focusColor
                     text: i18nc("@title:tab", "RAM")
-                    onClicked: full.currentTab = 1
+                    onClicked: full.rootItem.selectTab(1)
                 }
 
                 Local.TabPill {
@@ -86,7 +86,7 @@ Controls.Pane {
                     iconName: "video-display"
                     accentColor: Kirigami.Theme.focusColor
                     text: i18nc("@title:tab", "GPU")
-                    onClicked: full.currentTab = 2
+                    onClicked: full.rootItem.selectTab(2)
                 }
 
                 Local.TabPill {
@@ -94,7 +94,7 @@ Controls.Pane {
                     iconName: "network-wired"
                     accentColor: Kirigami.Theme.visitedLinkColor
                     text: i18nc("@title:tab", "NET")
-                    onClicked: full.currentTab = 3
+                    onClicked: full.rootItem.selectTab(3)
                 }
 
                 Local.TabPill {
@@ -102,7 +102,7 @@ Controls.Pane {
                     iconName: "drive-harddisk"
                     accentColor: Kirigami.Theme.neutralTextColor
                     text: i18nc("@title:tab", "DISK")
-                    onClicked: full.currentTab = 4
+                    onClicked: full.rootItem.selectTab(4)
                 }
             }
         }

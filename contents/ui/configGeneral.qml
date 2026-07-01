@@ -9,6 +9,7 @@ KCM.SimpleKCM {
     id: root
 
     property alias cfg_updateRateLimit: updateRateLimit.value
+    property alias cfg_compactBarLength: compactBarLength.value
     property alias cfg_showCpu: showCpu.checked
     property alias cfg_showMemory: showMemory.checked
     property alias cfg_showDisk: showDisk.checked
@@ -25,6 +26,7 @@ KCM.SimpleKCM {
     property alias cfg_gpuTemperatureSensorId: gpuTemperatureSensorId.text
 
     property int cfg_updateRateLimitDefault
+    property int cfg_compactBarLengthDefault
     property bool cfg_showCpuDefault
     property bool cfg_showMemoryDefault
     property bool cfg_showDiskDefault
@@ -54,6 +56,24 @@ KCM.SimpleKCM {
             }
             valueFromText: function(text) {
                 return Number.parseInt(text);
+            }
+        }
+
+        Controls.SpinBox {
+            id: compactBarLength
+            Kirigami.FormData.label: i18nc("@label", "Bar length:")
+            from: 0
+            to: 4000
+            stepSize: 8
+            textFromValue: function(value) {
+                if (value === 0) {
+                    return i18nc("@label adaptive bar length", "Adaptive");
+                }
+                return i18nc("@label pixels", "%1 px", value);
+            }
+            valueFromText: function(text) {
+                var parsed = Number.parseInt(text);
+                return isFinite(parsed) ? parsed : 0;
             }
         }
 

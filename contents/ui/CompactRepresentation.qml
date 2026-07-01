@@ -1,4 +1,5 @@
 import QtQuick
+import QtQuick.Controls as Controls
 import QtQuick.Layouts
 
 import org.kde.kirigami as Kirigami
@@ -9,15 +10,24 @@ Item {
     id: compact
 
     required property var rootItem
+    readonly property real horizontalPadding: Math.max(1, Kirigami.Units.smallSpacing / 2)
+    readonly property real moduleSpacing: Math.max(1, Kirigami.Units.smallSpacing / 2)
+    readonly property real innerSpacing: Math.max(1, Kirigami.Units.smallSpacing / 4)
+    readonly property real minimumBarWidth: Kirigami.Units.gridUnit * 4
+    readonly property real configuredBarLength: Number(Plasmoid.configuration.compactBarLength)
+    readonly property real adaptiveBarLength: row.implicitWidth + horizontalPadding * 2
+    readonly property real fixedWidth: Math.max(minimumBarWidth, configuredBarLength > 0 ? configuredBarLength : adaptiveBarLength)
+    readonly property real contentWidth: Math.max(0, fixedWidth - horizontalPadding * 2)
 
-    Layout.minimumWidth: Math.max(Kirigami.Units.gridUnit * 4, row.implicitWidth)
+    Layout.minimumWidth: fixedWidth
     Layout.minimumHeight: Kirigami.Units.gridUnit
-    Layout.preferredWidth: row.implicitWidth + Kirigami.Units.smallSpacing * 2
+    Layout.preferredWidth: fixedWidth
     Layout.preferredHeight: Kirigami.Units.gridUnit * 1.5
-    Layout.maximumWidth: Kirigami.Units.gridUnit * 28
+    Layout.maximumWidth: fixedWidth
 
-    implicitWidth: Layout.preferredWidth
+    implicitWidth: fixedWidth
     implicitHeight: Layout.preferredHeight
+    clip: true
 
     component ClickTarget: Item {
         id: target
@@ -25,13 +35,16 @@ Item {
         property int tabIndex: 0
         property color accentColor: Kirigami.Theme.highlightColor
         default property alias content: contentRow.data
-        readonly property real horizontalPadding: Kirigami.Units.smallSpacing
+        readonly property real horizontalPadding: compact.horizontalPadding
+        readonly property real fixedWidth: contentRow.implicitWidth + horizontalPadding * 2
         readonly property bool active: compact.rootItem.selectedTab === tabIndex && compact.rootItem.expanded
 
         Layout.alignment: Qt.AlignVCenter
-        Layout.preferredWidth: contentRow.implicitWidth + horizontalPadding * 2
+        Layout.minimumWidth: fixedWidth
+        Layout.preferredWidth: fixedWidth
+        Layout.maximumWidth: fixedWidth
         Layout.preferredHeight: compact.height
-        implicitWidth: Layout.preferredWidth
+        implicitWidth: fixedWidth
         implicitHeight: Layout.preferredHeight
 
         Rectangle {
@@ -50,7 +63,7 @@ Item {
             id: contentRow
 
             anchors.centerIn: parent
-            spacing: Kirigami.Units.smallSpacing / 2
+            spacing: compact.innerSpacing
         }
 
         MouseArea {
@@ -66,9 +79,14 @@ Item {
     RowLayout {
         id: row
 
-        anchors.centerIn: parent
+        readonly property real fitScale: Math.min(1, compact.contentWidth / Math.max(1, implicitWidth))
+
+        x: (compact.width - row.implicitWidth * fitScale) / 2
+        y: (compact.height - row.implicitHeight * fitScale) / 2
         height: parent.height
-        spacing: Kirigami.Units.smallSpacing
+        scale: fitScale
+        transformOrigin: Item.TopLeft
+        spacing: compact.moduleSpacing
 
         ClickTarget {
             visible: Plasmoid.configuration.showCpu
@@ -113,6 +131,21 @@ Item {
             visible: Plasmoid.configuration.showNetwork
             accentColor: Kirigami.Theme.visitedLinkColor
             tabIndex: 3
+
+            Controls.Label {
+                id: networkLabel
+
+                text: i18nc("@label", "NET")
+                color: Kirigami.Theme.visitedLinkColor
+                elide: Text.ElideRight
+                font.pixelSize: Kirigami.Theme.smallFont.pixelSize
+                font.weight: Font.DemiBold
+                horizontalAlignment: Text.AlignRight
+                Layout.alignment: Qt.AlignVCenter
+                Layout.minimumWidth: Math.max(implicitWidth, Kirigami.Units.gridUnit * 1.25)
+                Layout.preferredWidth: Math.max(implicitWidth, Kirigami.Units.gridUnit * 1.25)
+                Layout.maximumWidth: Math.max(implicitWidth, Kirigami.Units.gridUnit * 1.25)
+            }
 
             Local.BarStat {
                 label: i18nc("@label download", "↓")

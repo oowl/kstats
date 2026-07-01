@@ -1,0 +1,57 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    name: Validate plasmoid
+    runs-on: ubuntu-latest
+    container:
+      image: archlinux:base-devel
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Install Plasma 6 validation dependencies
+        run: |
+          pacman -Syu --noconfirm --needed \
+            appstream \
+            git \
+            kcmutils \
+            kirigami \
+            kpackage \
+            libksysguard \
+            libplasma \
+            libxml2 \
+            plasma5support \
+            qt6-declarative
+
+      - name: Print tool versions
+        run: |
+          /usr/lib/qt6/bin/qmllint --version
+          kpackagetool6 --version
+          appstreamcli --version
+          xmllint --version | head -n 1
+
+      - name: Lint QML
+        run: /usr/lib/qt6/bin/qmllint --unqualified disable contents/ui/*.qml contents/config/config.qml
+
+      - name: Validate config XML
+        run: xmllint --noout contents/config/main.xml
+
+      - name: Generate AppStream metadata
+        run: kpackagetool6 --type Plasma/Applet --appstream-metainfo . > /tmp/kstats.metainfo.xml
+
+      - name: Validate AppStream metadata
+        run: appstreamcli validate --no-net --explain /tmp/kstats.metainfo.xml
+
+      - name: Validate package install
+        run: kpackagetool6 --type Plasma/Applet --packageroot /tmp/kstats-plasmoid-check --install .

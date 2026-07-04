@@ -41,7 +41,7 @@ RowLayout {
         text: stat.label
         color: stat.accentColor
         elide: Text.ElideRight
-        font.pixelSize: Kirigami.Theme.smallFont.pixelSize
+        font.pixelSize: (plasmoid.configuration.barLabelFontSize != 0) ? plasmoid.configuration.barLabelFontSize : Kirigami.Theme.smallFont.pixelSize
         font.weight: Font.DemiBold
         horizontalAlignment: Text.AlignRight
         Layout.minimumWidth: stat.labelWidth
@@ -99,7 +99,7 @@ RowLayout {
         text: stat.value
         color: Kirigami.Theme.textColor
         elide: Text.ElideRight
-        font.pixelSize: Kirigami.Theme.smallFont.pixelSize
+        font.pixelSize: (plasmoid.configuration.barValueFontSize != 0) ? plasmoid.configuration.barValueFontSize : Kirigami.Theme.smallFont.pixelSize
         font.features: { "tnum": 1 }
         horizontalAlignment: Text.AlignRight
         Layout.minimumWidth: stat.valueWidth

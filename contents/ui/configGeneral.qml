@@ -113,7 +113,7 @@ KCM.SimpleKCM {
             id: barLabelFontSize
             Kirigami.FormData.label: i18nc("@label", "Bar label font size:")
             from: 0
-            to: 128
+            to: 64
             stepSize: 1
             textFromValue: function(value) {
                 if (value === 0) {
@@ -131,7 +131,7 @@ KCM.SimpleKCM {
             id: barValueFontSize
             Kirigami.FormData.label: i18nc("@label", "Bar value font size:")
             from: 0
-            to: 128
+            to: 64
             stepSize: 1
             textFromValue: function(value) {
                 if (value === 0) {

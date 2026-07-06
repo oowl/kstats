@@ -152,7 +152,7 @@ Item {
                 text: i18nc("@label", "NET")
                 color: Kirigami.Theme.visitedLinkColor
                 elide: Text.ElideRight
-                font.pixelSize: Kirigami.Theme.smallFont.pixelSize
+                font.pixelSize: (plasmoid.configuration.barLabelFontSize != 0) ? plasmoid.configuration.barLabelFontSize : Kirigami.Theme.smallFont.pixelSize
                 font.weight: Font.DemiBold
                 horizontalAlignment: Text.AlignRight
                 Layout.alignment: Qt.AlignVCenter

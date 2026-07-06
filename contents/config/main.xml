@@ -23,6 +23,12 @@
         <entry name="showNetwork" type="Bool">
             <default>true</default>
         </entry>
+        <entry name="barLabelFontSize" type="Int">
+            <default>0</default>
+        </entry>
+        <entry name="barValueFontSize" type="Int">
+            <default>0</default>
+        </entry>
         <entry name="cpuSensorId" type="String">
             <default>cpu/all/usage</default>
         </entry>

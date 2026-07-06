@@ -21,6 +21,8 @@ KCM.SimpleKCM {
     property alias cfg_diskWriteSensorId: diskWriteSensorId.text
     property alias cfg_networkDownloadSensorId: networkDownloadSensorId.text
     property alias cfg_networkUploadSensorId: networkUploadSensorId.text
+    property alias cfg_barLabelFontSize: barLabelFontSize.value
+    property alias cfg_barValueFontSize: barValueFontSize.value
 
     property int cfg_updateRateLimitDefault
     property int cfg_compactBarLengthDefault
@@ -101,6 +103,48 @@ KCM.SimpleKCM {
             text: i18nc("@option:check", "Show in bar")
         }
 
+        Kirigami.Separator {
+            Kirigami.FormData.isSection: true
+            Kirigami.FormData.label: i18nc("@title:group", "Font sizes")
+            Layout.fillWidth: true
+        }
+        
+        Controls.SpinBox {
+            id: barLabelFontSize
+            Kirigami.FormData.label: i18nc("@label", "Bar label font size:")
+            from: 0
+            to: 64
+            stepSize: 1
+            textFromValue: function(value) {
+                if (value === 0) {
+                    return i18nc("@label default bar label font size", "Default");
+                }
+                return i18nc("@label pixels", "%1 px", value);
+            }
+            valueFromText: function(text) {
+                var parsed = Number.parseInt(text);
+                return isFinite(parsed) ? parsed : 0;
+            }
+        }
+        
+        Controls.SpinBox {
+            id: barValueFontSize
+            Kirigami.FormData.label: i18nc("@label", "Bar value font size:")
+            from: 0
+            to: 64
+            stepSize: 1
+            textFromValue: function(value) {
+                if (value === 0) {
+                    return i18nc("@label default bar value font size", "Default");
+                }
+                return i18nc("@label pixels", "%1 px", value);
+            }
+            valueFromText: function(text) {
+                var parsed = Number.parseInt(text);
+                return isFinite(parsed) ? parsed : 0;
+            }
+        }
+        
         Kirigami.Separator {
             Kirigami.FormData.isSection: true
             Kirigami.FormData.label: i18nc("@title:group", "Sensor IDs")
